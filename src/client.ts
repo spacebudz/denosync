@@ -34,7 +34,7 @@ function toShelleyCompactHeader(header: any): ShelleyCompactBlockHeader {
 
 export function toShelleyCompatibleBlock(
   block: Block,
-): { shelleyBlock: BlockShelleyCompatible; era: Era } | null {
+): { blockShelley: BlockShelleyCompatible; era: Era } | null {
   const era = getBlockEra(block);
   if (era === "byron") return null;
   const blockEra = block[era];
@@ -60,7 +60,7 @@ export function toShelleyCompatibleBlock(
     }
   });
 
-  return { shelleyBlock: { header, headerHash, body }, era };
+  return { blockShelley: { header, headerHash, body }, era };
 }
 
 export const SHELLEY_START: Point = {
