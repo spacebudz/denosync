@@ -10,7 +10,7 @@ import {
   createClient,
   getBlockEra,
   Point,
-  SHELLEY_START,
+  POINT_SHELLEY_START,
   toShelleyCompatibleBlock,
 } from "./mod.ts";
 
@@ -31,7 +31,7 @@ function rollBackward(point: Point) {
 
 const client = await createClient({
   url: "ws://localhost:1337",
-  startPoint: SHELLEY_START,
+  startPoint: POINT_SHELLEY_START,
 }, {
   rollBackward,
   rollForward,
