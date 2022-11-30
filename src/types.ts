@@ -40,7 +40,7 @@ export type {
   StandardBlock,
 };
 
-export type ShelleyCompactBlockHeader = {
+export type BlockHeaderShelleyCompact = {
   blockHash: string;
   blockHeight: number;
   blockSize: number;
@@ -92,7 +92,7 @@ export type TxShelleyCompatible = {
 
 export type BlockShelleyCompatible = {
   body: TxShelleyCompatible[];
-  header: ShelleyCompactBlockHeader;
+  header: BlockHeaderShelleyCompact;
   headerHash: string;
 };
 

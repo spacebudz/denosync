@@ -1,5 +1,6 @@
 import {
   Block,
+  BlockHeaderShelleyCompact,
   BlockShelleyCompatible,
   Client,
   ClientConfig,
@@ -9,7 +10,6 @@ import {
   ProtocolParametersBabbage,
   ProtocolParametersShelley,
   RollCallbacks,
-  ShelleyCompactBlockHeader,
   StandardBlock,
 } from "./types.ts";
 
@@ -22,7 +22,7 @@ export function toByronBlock(block: Block): StandardBlock | null {
 }
 
 // deno-lint-ignore no-explicit-any
-function toShelleyCompactHeader(header: any): ShelleyCompactBlockHeader {
+function toShelleyCompactHeader(header: any): BlockHeaderShelleyCompact {
   return {
     blockHash: header.blockHash,
     blockHeight: header.blockHeight,
@@ -63,7 +63,7 @@ export function toShelleyCompatibleBlock(
   return { blockShelley: { header, headerHash, body }, era };
 }
 
-export const SHELLEY_START: Point = {
+export const POINT_SHELLEY_START: Point = {
   slot: 4492799,
   hash: "f8084c61b6a238acec985b59310b6ecec49c0ab8352249afd7268da5cff2a457",
 };
