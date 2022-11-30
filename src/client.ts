@@ -108,9 +108,35 @@ export async function createClient(
     }
   });
   await new Promise((res) => {
-    client.addEventListener("open", () => {
+    client.addEventListener("open", async () => {
       if (startPoint) {
-        wsp("FindIntersect", { points: [startPoint] });
+        if (startPoint === "tip") {
+          client.send(JSON.stringify({
+            type: "jsonwsp/request",
+            version: "1.0",
+            servicename: "ogmios",
+            methodname: "Query",
+            args: { query: "chainTip" },
+          }));
+          const tip = await new Promise((res, rej) => {
+            client.addEventListener("message", (msg: MessageEvent<string>) => {
+              try {
+                const { result } = JSON.parse(msg.data);
+                res(
+                  {
+                    hash: result.hash,
+                    slot: result.slot,
+                  },
+                );
+              } catch (e) {
+                rej(e);
+              }
+            }, { once: true });
+          });
+          wsp("FindIntersect", { points: [tip] });
+        } else {
+          wsp("FindIntersect", { points: [startPoint] });
+        }
       }
       return res(1);
     }, { once: true });
