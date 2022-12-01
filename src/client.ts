@@ -93,7 +93,6 @@ export async function createClient(
         if (!response.result.IntersectionFound) {
           throw "Intersection not found.";
         }
-        wsp("RequestNext", {});
         break;
 
       case "RequestNext":
@@ -105,6 +104,7 @@ export async function createClient(
           throw "RequestNext could not move forward or backward.";
         }
         wsp("RequestNext", {});
+        break;
     }
   });
   await new Promise((res) => {
@@ -147,7 +147,7 @@ export async function createClient(
         wsp("RequestNext", {});
       }
     },
-    stop: () => client.close(),
+    close: () => client.close(),
   };
 }
 

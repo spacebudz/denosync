@@ -125,5 +125,5 @@ export type ClientConfig = {
 
 export type Client = {
   start: () => void;
-  stop: () => void;
+  close: () => void;
 };
