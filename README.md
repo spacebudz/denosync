@@ -18,7 +18,7 @@ function rollForward(block: Block) {
   const { shelleyBlock } = toShelleyCompatibleBlock(block)!;
   const era = getBlockEra(block);
   const point: Point = {
-    hash: shelleyBlock.header.blockHash,
+    hash: shelleyBlock.headerHash,
     slot: shelleyBlock.header.slot,
   };
   console.log(era);
