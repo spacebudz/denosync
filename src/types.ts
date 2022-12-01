@@ -121,7 +121,6 @@ export type RollCallbacks = {
 export type ClientConfig = {
   url: string;
   startPoint?: Point | "origin" | "tip";
-  compact?: boolean;
 };
 
 export type Client = {
