@@ -85,7 +85,14 @@ export async function createClient(
     }));
   }
 
+  let hasExited = false;
+  Deno.addSignalListener("SIGINT", () => (hasExited = true));
+
   client.addEventListener("message", async (msg: MessageEvent<string>) => {
+    if (hasExited) {
+      client.close();
+      return;
+    }
     const response = JSON.parse(msg.data);
 
     switch (response.methodname) {
