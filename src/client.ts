@@ -69,10 +69,10 @@ export const POINT_SHELLEY_START: Point = {
 };
 
 export async function createClient(
-  { url, startPoint }: ClientConfig,
+  { url, startPoint, compact }: ClientConfig,
   callbacks: RollCallbacks,
 ): Promise<Client> {
-  const client = new WebSocket(url);
+  const client = new WebSocket(url, compact ? "ogmios.v1.compact" : undefined); // We assume for now the subprotocol will be changed to ogmios.v1.compact. It doesn't work right now!
 
   function wsp(methodname: string, args: unknown, mirror?: unknown) {
     client.send(JSON.stringify({
