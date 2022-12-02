@@ -114,8 +114,8 @@ export type Block = {
 };
 
 export type RollCallbacks = {
-  rollBackward: (point: Point) => unknown;
-  rollForward: (block: Block) => unknown;
+  rollBackward: (point: Point, hasExited: boolean) => unknown;
+  rollForward: (block: Block, hasExited: boolean) => unknown;
 };
 
 export type ClientConfig = {
@@ -126,6 +126,6 @@ export type ClientConfig = {
 export type Client = {
   start: () => void;
   close: () => void;
-  /** Calling onExit allows to gracefully shutdown the client and save you all necessary state. */
+  /** Calling onExit allows to gracefully shutdown the client and to save all necessary state. */
   onExit: (cb: () => unknown) => void;
 };

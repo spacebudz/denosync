@@ -86,6 +86,9 @@ export async function createClient(
   }
 
   let hasExited = false;
+  Deno.addSignalListener("SIGINT", () => {
+    hasExited = true;
+  });
 
   client.addEventListener("message", async (msg: MessageEvent<string>) => {
     const response = JSON.parse(msg.data);
@@ -101,10 +104,12 @@ export async function createClient(
         if (response.result.RollForward) {
           await callbacks.rollForward(
             response.result.RollForward.block,
+            hasExited,
           );
         } else if (response.result.RollBackward) {
           await callbacks.rollBackward(
             response.result.RollBackward.point,
+            hasExited,
           );
         } else {
           throw "RequestNext could not move forward or backward.";
@@ -160,7 +165,6 @@ export async function createClient(
     close: () => client.close(),
     onExit: (cb) => {
       Deno.addSignalListener("SIGINT", () => {
-        hasExited = true;
         setTimeout(() => {
           cb();
         }, 1000);
