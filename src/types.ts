@@ -126,4 +126,6 @@ export type ClientConfig = {
 export type Client = {
   start: () => void;
   close: () => void;
+  /** Calling onExit allows to gracefully shutdown the client and save you all necessary state. */
+  onExit: (cb: () => unknown) => void;
 };
